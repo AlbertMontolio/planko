@@ -5,6 +5,10 @@ import SelectVideoScreen from './screens/SelectVideoScreen'
 import ResultsScreen from './screens/ResultsScreen'
 import TrainScreen from './screens/TrainScreen'
 
+import { Provider } from 'react-redux'
+
+import { store } from './store'
+
 const AppNavigator = createBottomTabNavigator({
   SelectVideoScreen: SelectVideoScreen,
   Results: ResultsScreen,
@@ -16,7 +20,9 @@ const AppContainer = createAppContainer(AppNavigator);
 export default class App extends React.Component {
   render () {
     return (
-      <AppContainer />
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
     )
   }
 }

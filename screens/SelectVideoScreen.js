@@ -2,6 +2,8 @@ import React from 'react'
 import { Text, View, Dimensions, WebView, TouchableOpacity } from 'react-native'
 import styled from 'styled-components'
 import { Button, Icon } from 'react-native-elements'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -36,34 +38,12 @@ const StyledButton = styled.View`
 `
 
 class SelectVideoScreen extends React.Component {
-  state = {
-    videos: [
-      {
-        id: 1,
-        url: 'https://youtu.be/fhmzmh1W_po?controls=0&showinfo=0'
-      },
-      {
-        id: 2,
-        url: 'https://youtu.be/m7lh5-kV1FI'
-      },
-      {
-        id: 3,
-        url: 'https://youtu.be/9rdth8OkXfk'
-      },
-      {
-        id: 4,
-        url: 'https://youtu.be/0_5lJ7OGMB8'
-      }
-    ],
-    selectedVideo: 1
+  onPressHandler = (videoId) => {
+    this.props.selectVideo(videoId)
   }
 
-  onPressHandler = (id) => {
-    this.setState({ selectedVideo: id })
-  }
-
-  renderTouchableOpacity(id) {
-    if (this.state.selectedVideo !== id) {
+  renderTouchableOpacity(id, selectedVideoId) {
+    if (selectedVideoId !== id) {
       return (
         <TouchableOpacity 
           onPress={() => this.onPressHandler(id)}
@@ -79,13 +59,13 @@ class SelectVideoScreen extends React.Component {
   }
 
   render () {
-    const { videos } = this.state
+    const { videos, selectedVideoId } = this.props.videos
     const { navigate } = this.props.navigation
     
     return (
       <View>
         <Text>
-          Select Video screennnn
+          Select Video screennnnn
         </Text>
         
         <Videos>
@@ -95,7 +75,7 @@ class SelectVideoScreen extends React.Component {
                 key={video.id}
                 style={{ width: SCREEN_WIDTH / 3, height: SCREEN_WIDTH / 3 }}
               >
-                {this.renderTouchableOpacity(video.id)}
+                {this.renderTouchableOpacity(video.id, selectedVideoId)}
                 <WebView
                   key={video.id}
                   style={{flex:1, width: SCREEN_WIDTH / 3, height: SCREEN_WIDTH / 3, position: 'absolute', top: -1, left: -1}}
@@ -111,11 +91,15 @@ class SelectVideoScreen extends React.Component {
           large
           title='Start'
           backgroundColor='#009688'
-          onPress={() => this.onStartPress(navigate, this.state.selectedVideo)}
+          onPress={() => this.onStartPress(navigate, selectedVideoId)}
         />
       </View>
     )
   }
 }
 
-export default SelectVideoScreen
+function mapStateToProps(state) {
+  return { videos: state.videos }
+}
+
+export default connect(mapStateToProps, actions)(SelectVideoScreen)

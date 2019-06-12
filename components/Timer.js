@@ -3,33 +3,58 @@ import { Text, View, Button } from 'react-native'
 
 export default class Timer extends React.Component {
   state = {
-    init: 0,
-    end: 0,
+    time: 0,
+    isOn: false,
+    start: 0
   }
 
-  timer = null
-
-  componentDidMount() {
-    let i = 0
-    this.timer = setInterval(() => {
-      this.setState({ end: i })
-      i = i + 1
-    }, 1000);
+  millisToMinutesAndSeconds(millis) {
+    var minutes = Math.floor(millis / 60000);
+    var seconds = ((millis % 60000) / 1000).toFixed(0);
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+  }
+  
+  startTimer() {
+    this.setState({
+      isOn: true,
+      time: this.state.time,
+      start: Date.now() - this.state.time
+    })
+    this.timer = setInterval(() => this.setState({
+      time: Date.now() - this.state.start
+    }), 1)
   }
 
-  onStopPress() {
+  stopTimer() {
+    this.setState({ isOn: false })
     clearInterval(this.timer)
   }
 
+  resetTimer() {
+    this.setState({time: 0, isOn: false})
+  }
+
   render() {
+    let start = (this.state.time == 0) ? (
+      <Button onPress={() => this.startTimer()} title='Start'></Button>
+    ) : null
+    let stop = (this.state.time == 0 || !this.state.isOn) ? null : (
+      <Button onPress={() => this.stopTimer()} title='Stop'></Button>
+      )
+    let resume = (this.state.time == 0 || this.state.isOn) ? null : (
+      <Button onPress={() => this.startTimer()} title='Resume'></Button>
+    )
+    let reset = (this.state.time == 0 || this.state.isOn) ? null : (
+      <Button onPress={() => this.resetTimer()} title='Reset'></Button>
+    )
+
     return (
       <View>
-        <Text>Timer in component</Text>
-        <Text>{this.state.end}</Text>
-        <Button
-          title='Stop'
-          onPress={() => this.onStopPress()}
-        />
+        <Text>{this.millisToMinutesAndSeconds(this.state.time)}</Text>
+        {start}
+        {resume}
+        {stop}
+        {reset}
       </View>
     )
   }

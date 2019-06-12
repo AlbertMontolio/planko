@@ -3,6 +3,8 @@ import { Text, View, WebView, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
+import Timer from '../components/Timer'
+
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 
@@ -27,7 +29,7 @@ const TrainScreen = (props) => {
           source={{uri: selectedVideo.url}}
         />
       </VideoSquare>
-      <Text>Train screen</Text>
+      <Timer />
     </View>
   )
 }

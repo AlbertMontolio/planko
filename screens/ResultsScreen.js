@@ -1,18 +1,30 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { Text, View } from 'react-native'
 import { connect } from 'react-redux'
 
-const ResultsScreen = () => {
+const ResultsScreen = (props) => {
+  console.log('props.trains', props.trains)
   return (
-    <Text>
-      Results screen
-    </Text>
+    <View>
+      <Text>hellooo</Text>
+      <Text>hellooo</Text>
+      <Text>hellooo</Text>
+      {props.trains.map((train) => {
+        return (
+          <View key={train.start}>
+            <Text>{train.start}</Text>
+            <Text>{train.time}</Text>
+            <Text>------</Text>
+          </View>
+        )
+      })}
+    </View>
   )
 }
 
 function mapStateToProps(state) {
   console.log('general staate', state)
-  return {}
+  return { trains: state.trains.trains }
 }
 
 export default connect(mapStateToProps)(ResultsScreen)

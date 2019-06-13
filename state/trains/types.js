@@ -1,0 +1,1 @@
+export const STORE_TRAIN = 'store_train'

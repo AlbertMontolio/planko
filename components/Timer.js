@@ -1,7 +1,10 @@
 import React from 'react'
 import { Text, View, Button } from 'react-native'
+import { connect } from 'react-redux'
 
-export default class Timer extends React.Component {
+import * as actions from '../state/trains'
+
+class Timer extends React.Component {
   state = {
     time: 0,
     isOn: false,
@@ -28,6 +31,11 @@ export default class Timer extends React.Component {
   stopTimer() {
     this.setState({ isOn: false })
     clearInterval(this.timer)
+    const train = {
+      start: this.state.start,
+      time: this.state.time
+    }
+    this.props.storeTrain(train)
   }
 
   resetTimer() {
@@ -59,3 +67,5 @@ export default class Timer extends React.Component {
     )
   }
 }
+
+export default connect(null, actions)(Timer)

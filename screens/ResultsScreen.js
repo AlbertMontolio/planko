@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text } from 'react-native'
+import { connect } from 'react-redux'
 
 const ResultsScreen = () => {
   return (
@@ -9,4 +10,9 @@ const ResultsScreen = () => {
   )
 }
 
-export default ResultsScreen
+function mapStateToProps(state) {
+  console.log('general staate', state)
+  return {}
+}
+
+export default connect(mapStateToProps)(ResultsScreen)

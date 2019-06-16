@@ -5,6 +5,7 @@ import {
   Button
 } from 'react-native'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
 
 millisToMinutesAndSeconds = (millis) => {
   var minutes = Math.floor(millis / 60000);
@@ -12,38 +13,55 @@ millisToMinutesAndSeconds = (millis) => {
   return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }
 
+const GrayBackground = styled.View`
+  background-color: rgb(240,240,240);
+`
+
+const StyledTitle = styled.View`
+  background-color: white;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  margin-top: 20px;
+  borderBottomColor: rgb(240,240,240);
+  borderBottomWidth: 1;
+`
+
+const StyledResult = styled.View`
+  background-color: white;
+  padding: 10px;
+  borderBottomColor: rgb(240,240,240);
+  borderBottomWidth: 1;
+`
+
 class ResultsScreen extends React.Component {
-  displayResults = () => {
+
+  renderResult(train) {
+    const date = new Date(train.start);
+    console.log('train', train)
     return (
-      <View>
-        <View>
-          <Text>key 1</Text>
-        </View>
-        <View>
-          <Text>key 2</Text>
-        </View>
-      </View>
+      <StyledResult key={train.start}>
+        <Text>{date.toString()}</Text>
+        <Text>{millisToMinutesAndSeconds(train.time)}</Text>
+      </StyledResult>
     )
   }
 
   render () {
     return (
-      <View>
-        <Text>hellooof</Text>
-        <Text>hellooo</Text>
-        <Text>hellooho</Text>
-
+      <GrayBackground>
+        <StyledTitle>
+          <Text>
+            Results
+          </Text>
+        </StyledTitle>
         {this.props.trains.map((train) => {
-          const date = new Date(train.start);
-          return (
-            <View key={train.start}>
-              <Text>{date.toString()}</Text>
-              <Text>{millisToMinutesAndSeconds(train.time)}</Text>
-              <Text>------</Text>
-            </View>
-          )
+          return this.renderResult(train)
         })}
-      </View>
+      </GrayBackground>
     )
   }
 }

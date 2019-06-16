@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
+import moment from 'moment'
 
 millisToMinutesAndSeconds = (millis) => {
   var minutes = Math.floor(millis / 60000);
@@ -35,6 +36,13 @@ const StyledResult = styled.View`
   padding: 10px;
   borderBottomColor: rgb(240,240,240);
   borderBottomWidth: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
+
+const StyledDate = styled.Text`
+  width: 200px;
 `
 
 class ResultsScreen extends React.Component {
@@ -44,7 +52,7 @@ class ResultsScreen extends React.Component {
     console.log('train', train)
     return (
       <StyledResult key={train.start}>
-        <Text>{date.toString()}</Text>
+        <StyledDate>{moment().format('D MMM h:mm a')}</StyledDate>
         <Text>{millisToMinutesAndSeconds(train.time)}</Text>
       </StyledResult>
     )
@@ -58,6 +66,10 @@ class ResultsScreen extends React.Component {
             Results
           </Text>
         </StyledTitle>
+        <StyledResult>
+          <StyledDate>Date</StyledDate>
+          <Text>Time</Text>
+        </StyledResult>
         {this.props.trains.map((train) => {
           return this.renderResult(train)
         })}

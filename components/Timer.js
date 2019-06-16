@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Button } from 'react-native'
+import { Text, View, Button, AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
 
 import * as actions from '../state/trains'
@@ -28,6 +28,30 @@ class Timer extends React.Component {
     }), 1)
   }
 
+  getLastId = async () => {
+    const keys = await AsyncStorage.getAllKeys()
+    try {
+      lastKey = keys[keys.length - 1]
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
+  _storeData = async (start, time) => {
+    const allKeys = await AsyncStorage.getAllKeys()
+    try {
+    } catch (error) {
+      console.log('error', erro)
+    }
+    
+    let lastId = await this.getLastId()
+    try {
+      await AsyncStorage.setItem('My key', 'I like to save it')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   stopTimer() {
     this.setState({ isOn: false })
     clearInterval(this.timer)
@@ -36,6 +60,7 @@ class Timer extends React.Component {
       time: this.state.time
     }
     this.props.storeTrain(train)
+    this._storeData()
   }
 
   resetTimer() {

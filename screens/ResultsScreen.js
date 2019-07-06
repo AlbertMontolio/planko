@@ -2,11 +2,14 @@ import React from 'react'
 import { 
   Text, 
   View,
-  Button
+  Button,
+  ScrollView
 } from 'react-native'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import moment from 'moment'
+
+import ResultsChart from '../components/ResultsChart'
 
 millisToMinutesAndSeconds = (millis) => {
   var minutes = Math.floor(millis / 60000);
@@ -41,18 +44,20 @@ const StyledResult = styled.View`
   align-items: center;
 `
 
+const StyledResults = styled.View`
+  margin: 20px 0px;
+`
+
 const StyledDate = styled.Text`
   width: 200px;
 `
 
 class ResultsScreen extends React.Component {
-
   renderResult(train) {
     const date = new Date(train.start);
-    console.log('train', train)
     return (
       <StyledResult key={train.start}>
-        <StyledDate>{moment().format('D MMM h:mm a')}</StyledDate>
+        <StyledDate>{moment(train.start).format('D MMM h:mm a')}</StyledDate>
         <Text>{millisToMinutesAndSeconds(train.time)}</Text>
       </StyledResult>
     )
@@ -61,18 +66,28 @@ class ResultsScreen extends React.Component {
   render () {
     return (
       <GrayBackground>
-        <StyledTitle>
-          <Text>
-            Results
-          </Text>
-        </StyledTitle>
-        <StyledResult>
-          <StyledDate>Date</StyledDate>
-          <Text>Time</Text>
-        </StyledResult>
-        {this.props.trains.map((train) => {
-          return this.renderResult(train)
-        })}
+        <ScrollView>
+          <StyledTitle>
+            <Text>
+              Results
+            </Text>
+          </StyledTitle>
+
+          <ResultsChart trainings={this.props.trains} />
+          
+          <StyledResults>
+
+          
+            <StyledResult>
+              <StyledDate>Date</StyledDate>
+              <Text>Time</Text>
+            </StyledResult>
+            {this.props.trains.map((train) => {
+              return this.renderResult(train)
+            })}
+          </StyledResults>
+          
+        </ScrollView>
       </GrayBackground>
     )
   }

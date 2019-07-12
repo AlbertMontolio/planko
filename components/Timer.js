@@ -1,8 +1,32 @@
 import React from 'react'
 import { Text, View, Button, AsyncStorage } from 'react-native'
+import { Button as NativeButton } from 'react-native-elements'
+
 import { connect } from 'react-redux'
+import styled from 'styled-components'
 
 import * as actions from '../state/trains'
+
+const BtnsWrapper = styled.View`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  flex-grow: 1;
+  justify-content: space-between;
+  padding: 20px 20px;
+`
+
+const TimerViewer = styled.View`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(250,250,250);
+  padding: 40px 0px;
+`
+
+const StyledText = styled.Text`
+  font-size: 40px;
+`
 
 class Timer extends React.Component {
   state = {
@@ -67,27 +91,40 @@ class Timer extends React.Component {
     this.setState({time: 0, isOn: false})
   }
 
-  render() {
-    let start = (this.state.time == 0) ? (
-      <Button onPress={() => this.startTimer()} title='Start'></Button>
+  renderManageBtns() {
+    let start = (this.state.time === 0 || !this.state.isOn) ? (
+      <NativeButton 
+        onPress={() => this.startTimer()} 
+        title='Start' 
+        type='outline'
+        disabled={this.state.time !== 0 && !this.state.isOn}
+      />
     ) : null
-    let stop = (this.state.time == 0 || !this.state.isOn) ? null : (
-      <Button onPress={() => this.stopTimer()} title='Stop'></Button>
-      )
-    let resume = (this.state.time == 0 || this.state.isOn) ? null : (
-      <Button onPress={() => this.startTimer()} title='Resume'></Button>
+    let reset = (
+      <NativeButton onPress={() => this.resetTimer()} title='Reset' type='outline'/>
     )
-    let reset = (this.state.time == 0 || this.state.isOn) ? null : (
-      <Button onPress={() => this.resetTimer()} title='Reset'></Button>
+    let stop = (this.state.time == 0 || !this.state.isOn) ? null : (
+      <NativeButton onPress={() => this.stopTimer()} title='Stop' type='outline'/>
     )
 
     return (
       <View>
-        <Text>{this.millisToMinutesAndSeconds(this.state.time)}</Text>
-        {start}
-        {resume}
-        {stop}
-        {reset}
+        <BtnsWrapper>
+          {reset}
+          {start}
+          {stop}
+        </BtnsWrapper>
+      </View>
+    )
+  }
+
+  render() {
+    return (
+      <View>
+        <TimerViewer>
+          <StyledText>{this.millisToMinutesAndSeconds(this.state.time)}</StyledText>
+        </TimerViewer>
+        { this.renderManageBtns() }
       </View>
     )
   }

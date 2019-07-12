@@ -18,10 +18,11 @@ import ResultsScreen from './screens/ResultsScreen'
 import TrainScreen from './screens/TrainScreen'
 import { PersistGate } from 'redux-persist/integration/react'
 
+// SelectVideoScreen: SelectVideoScreen,
+
 const AppNavigator = createBottomTabNavigator({
-  SelectVideoScreen: SelectVideoScreen,
-  Results: ResultsScreen,
-  Train: TrainScreen
+  Train: TrainScreen,
+  Results: ResultsScreen
 })
 
 const AppContainer = createAppContainer(AppNavigator);

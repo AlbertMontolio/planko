@@ -19,6 +19,16 @@ const TrainScreen = (props) => {
   return (
     <View>
       <Text>Train screen</Text>
+      <VideoSquare
+        style={{ width: SCREEN_WIDTH, height: SCREEN_HEIGHT / 2 }}
+      >
+        <WebView
+          key={selectedVideo.id}
+          style={{flex:1, width: SCREEN_WIDTH, height: SCREEN_HEIGHT / 2}}
+          javaScriptEnabled={true}
+          source={{uri: selectedVideo.url}}
+        />
+      </VideoSquare>
       <Timer />
     </View>
   )

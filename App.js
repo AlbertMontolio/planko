@@ -2,32 +2,46 @@ import React from 'react'
 import { 
   StyleSheet, 
   Text, 
-  View
+  View,
+  Button
 } from 'react-native'
 import { Provider } from 'react-redux'
 import { 
-  createStackNavigator, 
+  createStackNavigator,
+  createDrawerNavigator,
   createAppContainer, 
-  createBottomTabNavigator 
+  createBottomTabNavigator, 
+  createSwitchNavigator
 } from 'react-navigation'
+import Icon from '@expo/vector-icons/Ionicons'
 
 import { persistor, store } from './store'
 
 import SelectVideoScreen from './screens/SelectVideoScreen'
 import ResultsScreen from './screens/ResultsScreen'
 import TrainScreen from './screens/TrainScreen'
+import ProfileScreen from './screens/ProfileScreen'
 import { PersistGate } from 'redux-persist/integration/react'
 
 // SelectVideoScreen: SelectVideoScreen,
 
-const AppNavigator = createBottomTabNavigator({
-  Train: TrainScreen,
-  Results: ResultsScreen
-})
-
-const AppContainer = createAppContainer(AppNavigator);
-
-const LoadingView = () => <Text>Loading</Text>
+class WelcomeScreen extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>Welcome screeeen</Text>
+        <Button 
+          title='Login'
+          onPress={() => this.props.navigation.navigate('Plank')}
+        />
+        <Button 
+          title='Sign up'
+          onPress={() => alert('button sign up pressed')}
+        />
+      </View>
+    )
+  }
+}
 
 export default class App extends React.Component {
   render () {
@@ -43,3 +57,90 @@ export default class App extends React.Component {
     )
   }
 }
+
+const TrainStack = createStackNavigator({
+  Train: {
+    screen: TrainScreen,
+    navigationOptions: ({navigation}) => {
+      return {
+        headerTitle: 'Training area',
+        headerLeft: (
+          <Icon style={{paddingLeft: 10}}
+            onPress={() => navigation.openDrawer()} 
+            name='md-menu' 
+            size={30}
+          />
+        )
+      }
+    }
+  }
+})
+
+const ResultsStack = createStackNavigator({
+  Results: {
+    screen: ResultsScreen,
+    navigationOptions: ({navigation}) => {
+      return {
+        headerTitle: 'Results',
+        headerLeft: (
+          <Icon style={{paddingLeft: 10}}
+            onPress={() => navigation.openDrawer()} 
+            name='md-menu' 
+            size={30}
+          />
+        )
+      }
+    }
+  }
+})
+
+const PlankTabNavigator = createBottomTabNavigator({
+  TrainStack,
+  Results: ResultsScreen
+}, {
+  navigationOptions: ({navigation}) => {
+    const {routeName} = navigation.state.routes[navigation.state.index]
+    return {
+      header: null,
+      headerTitle: routeName
+    }
+  }
+})
+
+const PlankStackNavigator = createStackNavigator({
+  PlankTabNavigator: PlankTabNavigator
+}, {
+  defaultNavigationOptions: ({navigation}) => {
+    return {
+      headerLeft: (<Icon style={{paddingLeft: 10}}
+        onPress={() => navigation.openDrawer()} 
+        name='md-menu' 
+        size={30} />) 
+    }
+  }
+})
+
+const PlankDrawerNavigator = createDrawerNavigator({
+  Plank: {
+    screen: PlankStackNavigator
+  }
+})
+
+const AppSwitchNavigator = createSwitchNavigator({
+  Welcome: {screen: WelcomeScreen},
+  Plank: {screen: PlankDrawerNavigator}
+})
+
+// const AppContainer = createAppContainer(AppNavigator)
+const AppContainer = createAppContainer(AppSwitchNavigator)
+
+const LoadingView = () => <Text>Loading</Text>
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+})

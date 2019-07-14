@@ -44,7 +44,6 @@ class Timer extends React.Component {
     this.timer = setInterval(() => this.setState({
       time: Date.now() - this.state.start
     }), 1)
-    console.log('state trains startTimer', this.props.trains)
   }
 
   getLastKey () {
@@ -57,8 +56,6 @@ class Timer extends React.Component {
   stopTimer() {
     this.setState({ isOn: false })
     clearInterval(this.timer)
-
-    // const lastId = await this.getLastId()
   
     const train = {
       id: this.getLastKey() + 1,

@@ -1,11 +1,11 @@
 import React from 'react'
 import { Text, View, Button, AsyncStorage } from 'react-native'
 import { Button as NativeButton } from 'react-native-elements'
-
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
 import * as actions from '../state/trains'
+import { millisToMinutesAndSeconds } from './helpers/dates'
 
 const BtnsWrapper = styled.View`
   display: flex;
@@ -34,12 +34,6 @@ class Timer extends React.Component {
     isOn: false,
     start: 0
   }
-
-  millisToMinutesAndSeconds(millis) {
-    var minutes = Math.floor(millis / 60000);
-    var seconds = ((millis % 60000) / 1000).toFixed(0);
-    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-  }
   
   startTimer() {
     this.setState({
@@ -50,41 +44,28 @@ class Timer extends React.Component {
     this.timer = setInterval(() => this.setState({
       time: Date.now() - this.state.start
     }), 1)
+    console.log('state trains startTimer', this.props.trains)
   }
 
-  getLastId = async () => {
-    const keys = await AsyncStorage.getAllKeys()
-    try {
-      lastKey = keys[keys.length - 1]
-    } catch(error) {
-      console.log(error)
+  getLastKey () {
+    if (this.props.trains.length === 0) {
+      return 0
     }
-  }
-
-  _storeData = async (start, time) => {
-    const allKeys = await AsyncStorage.getAllKeys()
-    try {
-    } catch (error) {
-      console.log('error', erro)
-    }
-    
-    let lastId = await this.getLastId()
-    try {
-      await AsyncStorage.setItem('My key', 'I like to save it')
-    } catch (error) {
-      console.log(error)
-    }
+    return this.props.trains[this.props.trains.length - 1].id
   }
 
   stopTimer() {
     this.setState({ isOn: false })
     clearInterval(this.timer)
+
+    // const lastId = await this.getLastId()
+  
     const train = {
+      id: this.getLastKey() + 1,
       start: this.state.start,
       time: this.state.time
     }
     this.props.storeTrain(train)
-    this._storeData()
   }
 
   resetTimer() {
@@ -122,7 +103,7 @@ class Timer extends React.Component {
     return (
       <View>
         <TimerViewer>
-          <StyledText>{this.millisToMinutesAndSeconds(this.state.time)}</StyledText>
+          <StyledText>{millisToMinutesAndSeconds(this.state.time)}</StyledText>
         </TimerViewer>
         { this.renderManageBtns() }
       </View>
@@ -130,4 +111,8 @@ class Timer extends React.Component {
   }
 }
 
-export default connect(null, actions)(Timer)
+function mapStateToProps(state) {
+  return { trains: state.trains.trains }
+}
+
+export default connect(mapStateToProps, actions)(Timer)

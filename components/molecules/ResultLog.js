@@ -36,17 +36,23 @@ var swipeoutBtns = [
   }
 ]
 
-const ResultLog = ({train}) => (
-  <Swipeout 
-    right={swipeoutBtns}
-  >
-    <StyledResult key={train.start}>
-      <StyledDate>
-        {formatDate(train.start, 'D MMM h:mm a')}
-      </StyledDate>
-      <Text>{millisToMinutesAndSeconds(train.time)}</Text>
-    </StyledResult>
-  </Swipeout>
-)
+const ResultLog = ({train}) => {
+
+  console.log('train', train)
+
+  return (
+    <Swipeout 
+      right={swipeoutBtns}
+    >
+      <StyledResult key={train.start}>
+        <StyledDate>
+          {formatDate(train.start, 'D MMM h:mm a')}
+        </StyledDate>
+        <Text>{millisToMinutesAndSeconds(train.time)}</Text>
+        <Text>({train.id})</Text>
+      </StyledResult>
+    </Swipeout>
+  )
+}
 
 export default ResultLog

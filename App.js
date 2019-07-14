@@ -19,6 +19,8 @@ import { persistor, store } from './store'
 
 import SelectVideoScreen from './screens/SelectVideoScreen'
 import ResultsScreen from './screens/ResultsScreen'
+import ResultsLogScreen from './screens/ResultsLogScreen'
+
 import TrainScreen from './screens/TrainScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -91,12 +93,15 @@ const ResultsStack = createStackNavigator({
         )
       }
     }
+  },
+  ResultsLogScreen: {
+    screen: ResultsLogScreen
   }
 })
 
 const PlankTabNavigator = createBottomTabNavigator({
   TrainStack,
-  Results: ResultsScreen
+  ResultsStack
 }, {
   navigationOptions: ({navigation}) => {
     const {routeName} = navigation.state.routes[navigation.state.index]

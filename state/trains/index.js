@@ -4,13 +4,21 @@
 
 import {
   STORE_TRAIN,
-  DELETE_ALL_TRAINS
+  DELETE_ALL_TRAINS,
+  DELETE_TRAIN
 } from './types'
 
 export const storeTrain = (payload) => {
   return {
     payload: payload,
     type: STORE_TRAIN
+  }
+}
+
+export const deleteTrain = payload => {
+  return {
+    payload: payload,
+    type: DELETE_TRAIN
   }
 }
 

@@ -2,10 +2,17 @@ import {
   STORE_TRAIN
 } from './types'
 
-export const storeTrain = (payload) => {
+export const storeTrain = payload => {
   return {
     payload: payload,
     type: STORE_TRAIN
+  }
+}
+
+export const deleteTrain = payload => {
+  return {
+    payload: payload,
+    type: DELETE_TRAIN
   }
 }
 

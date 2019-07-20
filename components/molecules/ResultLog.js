@@ -24,7 +24,6 @@ const StyledDate = styled.Text`
 `
 
 const ResultLog = ({train}) => {
-  console.log('trainnnn', train)
   return (
     <StyledResult key={train.start}>
       <StyledDate>

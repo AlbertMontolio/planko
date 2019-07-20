@@ -6,6 +6,7 @@ import styled from 'styled-components'
 
 import * as actions from '../state/trains'
 import { millisToMinutesAndSeconds } from './helpers/dates'
+import { getLastKey } from '../state/trains/helpers'
 
 const BtnsWrapper = styled.View`
   display: flex;
@@ -46,19 +47,12 @@ class Timer extends React.Component {
     }), 1)
   }
 
-  getLastKey () {
-    if (this.props.trains.length === 0) {
-      return 0
-    }
-    return this.props.trains[this.props.trains.length - 1].id
-  }
-
   stopTimer() {
     this.setState({ isOn: false })
     clearInterval(this.timer)
   
     const train = {
-      id: this.getLastKey() + 1,
+      id: getLastKey(this.props.trains) + 1,
       start: this.state.start,
       time: this.state.time
     }

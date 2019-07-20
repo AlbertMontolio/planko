@@ -49,14 +49,8 @@ const styles = StyleSheet.create({
 
 // trains, total
 class ResultsLog extends React.Component {
-  deleteResult = (train) => {
-    console.log('deleting resultttt')
-    console.log('train idddd', train.item.id)
-  }
-
   render () {
     const {trains, total} = this.props
-    console.log('this.props', this.props)
 
     return (
       <StyledResults>

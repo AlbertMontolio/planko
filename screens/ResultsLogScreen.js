@@ -19,6 +19,10 @@ class ResultsLogScreen extends React.Component {
           title='Delete all'
           onPress={() => this.props.deleteAllTrains()}
         />
+        <Button
+            title='Add training'
+            onPress={() => this.props.navigation.navigate('AddResultsScreen')}
+          />
         <ResultsLog 
           trains={this.props.trains}
           total={30}

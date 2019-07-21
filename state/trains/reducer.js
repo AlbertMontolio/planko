@@ -5,12 +5,18 @@ import {
   ADD_TRAIN
 } from './types'
 
+import { getLastKey } from './helpers'
+
 const INITIAL_STATE = { trains: [] }
 
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     case STORE_TRAIN:
-      return { trains: [...state.trains, action.payload] }
+      const lastId = getLastKey(state.trains) + 1
+      const train = action.payload
+      train.id = lastId
+
+      return { trains: [...state.trains, train] }
     case DELETE_ALL_TRAINS:
       return { trains: [] }
     case DELETE_TRAIN:

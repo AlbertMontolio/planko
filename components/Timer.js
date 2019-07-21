@@ -6,7 +6,6 @@ import styled from 'styled-components'
 
 import * as actions from '../state/trains'
 import { millisToMinutesAndSeconds } from './helpers/dates'
-import { getLastKey } from '../state/trains/helpers'
 
 const BtnsWrapper = styled.View`
   display: flex;
@@ -52,7 +51,6 @@ class Timer extends React.Component {
     clearInterval(this.timer)
   
     const train = {
-      id: getLastKey(this.props.trains) + 1,
       start: this.state.start,
       time: this.state.time
     }
@@ -102,8 +100,4 @@ class Timer extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { trains: state.trains.trains }
-}
-
-export default connect(mapStateToProps, actions)(Timer)
+export default connect(null, actions)(Timer)

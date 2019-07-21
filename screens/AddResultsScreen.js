@@ -4,50 +4,106 @@ import {
   View,
   TextInput,
   Button,
-  DatePickerIOS
+  DatePickerIOS,
+  Picker,
+  ScrollView
 } from 'react-native'
 import {connect} from 'react-redux'
+import styled from 'styled-components'
 
 import * as actions from '../state/trains'
+import { getLastKey } from '../state/trains/helpers'
+
+const StyledTimePicker = styled.View`
+  height: 300px;
+`
+
+const StyledTimePickers = styled.View`
+  display: flex;
+  flex-direction: row;
+` 
 
 class AddResultsScreen extends React.Component {
 
-  getCurrentDate(date) {
-    const basedDate = date
+  // TODO am i using this method?
+  getCurrentDate() {
+    const basedDate = new Date()
     basedDate.setMinutes(0)
     basedDate.setSeconds(0)
     return basedDate
   }
 
   state = {
-    chosenInitDate: new Date(),
-    chosenEndDate: new Date()
+    chosenInitDate: this.getCurrentDate(),
+    chosenEndDate: this.getCurrentDate(),
+    chosenMinutes: 0,
+    chosenSeconds: 0,
+    elapsedTime: 0
   }
 
   setInitDate = (newInitDate) => {
-    const basedInitDate = this.getCurrentDate(newInitDate)
-    console.log('newInitDate', newInitDate)
-    console.log('basedInitDate', basedInitDate)
-    this.setState({chosenInitDate: newInitDate})
+    // const basedInitDate = this.getCurrentDate(newInitDate)
+    this.setState({
+      chosenInitDate: newInitDate,
+      chosenEndDate: newInitDate
+    })
   }
 
   setEndDate = (newEndDate) => {
     this.setState({chosenEndDate: newEndDate})
-    console.log('state', this.state)
   }
 
   addTrain () {
     const train = {
-      id: getLastKey(this.props.trains) + 1,
-      start: this.state.start,
-      time: this.state.time
+      start: this.state.chosenInitDate,
+      time: this.state.chosenEndDate - this.state.chosenInitDate
     }
+    console.log('addTrain', train)
     this.props.storeTrain(train)
+  }
+
+  generateItems() {
+    let minutes = []
+    for (i=0; i<=60; i++) {
+      minutes.push(i)
+    }
+    return minutes
+  }
+
+  renderTimePicker(typeTime) {
+    console.log('eeeeee')
+    return (
+      <StyledTimePicker>
+        <Picker
+          selectedValue={this.state[typeTime]}
+          style={{height: 50, width: 100}}
+          onValueChange={(itemValue, itemIndex) => {
+            console.log('typeTime', typeTime)
+            // TOODO refactor
+            if (typeTime === 'chosenMinutes') {
+              this.setState({
+                chosenMinutes: itemValue,
+                chosenEndDate: new Date(this.state.chosenEndDate.setMinutes(itemValue))              })
+            } else if (typeTime === 'chosenSeconds') {
+              this.setState({
+                chosenSeconds: itemValue,
+                chosenEndDate: new Date(this.state.chosenEndDate.setSeconds(itemValue))
+              })
+            }
+          }}>
+            {this.generateItems().map((item) => {
+              return (
+                <Picker.Item label={item} value={item} />
+              )
+            })}
+        </Picker>
+      </StyledTimePicker>
+    )
   }
 
   render () {
     return (
-      <View>
+      <ScrollView>
         <Text>Add Results Screen</Text>
         <Text>Select Date</Text>
         <DatePickerIOS
@@ -55,18 +111,23 @@ class AddResultsScreen extends React.Component {
           onDateChange={this.setInitDate}
           mode={'date'}
         />
-        <Text>Select Time</Text>
-        <DatePickerIOS
-          date={this.state.chosenInitDate}
-          onDateChange={this.setEndDate}
-          mode={'time'}
-        />
-        
+        <StyledTimePickers>
+          {this.renderTimePicker('chosenMinutes')}
+          {this.renderTimePicker('chosenSeconds')}
+        </StyledTimePickers>
+
+        <View>
+          <Text>{this.state.chosenInitDate.toString()}</Text>
+          <Text>{this.state.chosenEndDate.toString()}</Text>
+          <Text>{this.state.chosenMinutes}</Text>
+          <Text>{this.state.chosenSeconds}</Text>
+        </View>
+      
         <Button 
           title='Add training'
           onPress={() => this.addTrain()}
         />
-      </View>
+      </ScrollView>
     )
   }
 }

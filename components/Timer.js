@@ -34,6 +34,14 @@ class Timer extends React.Component {
     isOn: false,
     start: 0
   }
+
+  componentDidMount() {
+    console.log('componentdidmount')
+    fetch('https://plankorailsfour.herokuapp.com/api/v1/trainings')
+    // fetch('https://jsonplaceholder.typicode.com/todos/1')
+    .then(response => response.json())
+    .then(json => console.log(json))
+  }
   
   startTimer() {
     this.setState({

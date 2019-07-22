@@ -22,9 +22,7 @@ export const railsLogout = (auth) => async dispatch => {
 }
 
 export const railsLogin = (email, password) => async dispatch => {
-
-  // let authToken = await AsyncStorage.getItem('auth_token')
-
+  console.log('rails login action')
   const authToken = null
 
   if (authToken) {
@@ -33,7 +31,7 @@ export const railsLogin = (email, password) => async dispatch => {
       payload: authToken
     })
   } else {
-    handleRailsLogin(dispatch, email, password)
+    await handleRailsLogin(dispatch, email, password)
   }
 }
 

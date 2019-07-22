@@ -58,7 +58,6 @@ class AddResultsScreen extends React.Component {
       start: this.state.chosenInitDate,
       time: this.state.chosenEndDate - this.state.chosenInitDate
     }
-    console.log('addTrain', train)
     this.props.storeTrain(train)
   }
 
@@ -71,15 +70,13 @@ class AddResultsScreen extends React.Component {
   }
 
   renderTimePicker(typeTime) {
-    console.log('eeeeee')
     return (
       <StyledTimePicker>
         <Picker
           selectedValue={this.state[typeTime]}
           style={{height: 50, width: 100}}
           onValueChange={(itemValue, itemIndex) => {
-            console.log('typeTime', typeTime)
-            // TOODO refactor
+            // TODO refactor
             if (typeTime === 'chosenMinutes') {
               this.setState({
                 chosenMinutes: itemValue,

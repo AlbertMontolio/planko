@@ -4,7 +4,8 @@ import { Button as NativeButton } from 'react-native-elements'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
-import * as actions from '../state/trains'
+import {storeTrain as storeTrainAction} from '../state/trains/actions'
+import {railsLogout as railsLogoutAction} from '../state/auth/actions'
 import { millisToMinutesAndSeconds } from './helpers/dates'
 
 const BtnsWrapper = styled.View`
@@ -37,6 +38,7 @@ class Timer extends React.Component {
 
   componentDidMount() {
     console.log('componentdidmount Timer')
+    console.log('auth', this.props)
     // fetch('https://plankorailsfour.herokuapp.com/api/v1/trainings')
     // fetch('https://jsonplaceholder.typicode.com/todos/1')
     // .then(response => response.json())
@@ -96,9 +98,22 @@ class Timer extends React.Component {
     )
   }
 
+  async handleLogout() {
+    console.log('handling log out')
+    await this.props.railsLogout(this.props.auth)
+    console.log('navigate welcome', this.props.navigation)
+    this.props.navigation.navigate('Welcome')
+  }
+
   render() {
     return (
       <View>
+        {true && (
+          <Button 
+            title='Log out'
+            onPress={() => this.handleLogout()}
+          />
+        )}
         <TimerViewer>
           <StyledText>{millisToMinutesAndSeconds(this.state.time)}</StyledText>
         </TimerViewer>
@@ -108,4 +123,11 @@ class Timer extends React.Component {
   }
 }
 
-export default connect(null, actions)(Timer)
+function mapStateToProps(state) {
+  return {auth: state.auth}
+}
+
+export default connect(mapStateToProps, {
+  storeTrain: storeTrainAction,
+  railsLogout: railsLogoutAction
+})(Timer)

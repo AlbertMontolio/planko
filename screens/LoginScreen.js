@@ -16,13 +16,12 @@ class LoginScreen extends React.Component {
   }
 
   componentDidMount() {
-    console.log('props', this.props)
   }
 
   async handleRailsLogin() {
     this.props.railsLogin(this.state.email, this.state.password)
 
-    if (this.props.auth.access_token) {
+    if (this.props.auth.accessToken) {
       this.props.navigation.navigate('Plank')
     }
   }

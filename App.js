@@ -27,38 +27,7 @@ import AddResultsScreen from './screens/AddResultsScreen'
 import TrainScreen from './screens/TrainScreen'
 import LoginScreen from './screens/LoginScreen'
 import ProfileScreen from './screens/ProfileScreen'
-
-// SelectVideoScreen: SelectVideoScreen,
-
-class WelcomeScreen extends React.Component {
-  componentDidMount() {
-    // const accessToken = await AsyncStorage.getItem('access_token')
-    const accessToken = null
-    console.log('accessToken', accessToken)
-
-    if (accessToken) {
-      this.props.navigation.navigate('Plank')
-    } else {
-      this.props.navigation.navigate('Login')
-    }
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Welcome screeeen</Text>
-        <Button 
-          title='Login'
-          onPress={() => this.props.navigation.navigate('Login')}
-        />
-        <Button 
-          title='Sign up'
-          onPress={() => alert('button sign up pressed')}
-        />
-      </View>
-    )
-  }
-}
+import WelcomeScreen from './screens/WelcomeScreen'
 
 export default class App extends React.Component {
   render () {
@@ -183,12 +152,3 @@ const AppSwitchNavigator = createSwitchNavigator({
 const AppContainer = createAppContainer(AppSwitchNavigator)
 
 const LoadingView = () => <Text>Loading</Text>
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})

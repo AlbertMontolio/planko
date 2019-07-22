@@ -31,9 +31,16 @@ import ProfileScreen from './screens/ProfileScreen'
 // SelectVideoScreen: SelectVideoScreen,
 
 class WelcomeScreen extends React.Component {
-  async componentDidMount() {
-    const accessToken = await AsyncStorage.getItem('access_token')
+  componentDidMount() {
+    // const accessToken = await AsyncStorage.getItem('access_token')
+    const accessToken = null
     console.log('accessToken', accessToken)
+
+    if (accessToken) {
+      this.props.navigation.navigate('Plank')
+    } else {
+      this.props.navigation.navigate('Login')
+    }
   }
 
   render() {

@@ -4,7 +4,8 @@ import {
   Text, 
   View,
   TextInput,
-  Button
+  Button,
+  AsyncStorage
 } from 'react-native'
 import { Provider } from 'react-redux'
 import { 
@@ -30,11 +31,9 @@ import ProfileScreen from './screens/ProfileScreen'
 // SelectVideoScreen: SelectVideoScreen,
 
 class WelcomeScreen extends React.Component {
-  handleLogin() {
-    console.log('Welcome screen')
-    console.log(this.props.navigation)
-    console.log(this.props.navigation.navigate('Login'))
-    this.props.navigation.navigate('Login')
+  async componentDidMount() {
+    const accessToken = await AsyncStorage.getItem('access_token')
+    console.log('accessToken', accessToken)
   }
 
   render() {

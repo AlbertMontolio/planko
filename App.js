@@ -14,6 +14,7 @@ import {
   createSwitchNavigator
 } from 'react-navigation'
 import Icon from '@expo/vector-icons/Ionicons'
+import { PersistGate } from 'redux-persist/integration/react'
 
 import { persistor, store } from './store'
 
@@ -22,8 +23,8 @@ import ResultsScreen from './screens/ResultsScreen'
 import ResultsLogScreen from './screens/ResultsLogScreen'
 import AddResultsScreen from './screens/AddResultsScreen'
 import TrainScreen from './screens/TrainScreen'
+import LoginScreen from './screens/LoginScreen'
 import ProfileScreen from './screens/ProfileScreen'
-import { PersistGate } from 'redux-persist/integration/react'
 
 // SelectVideoScreen: SelectVideoScreen,
 
@@ -34,7 +35,7 @@ class WelcomeScreen extends React.Component {
         <Text>Welcome screeeen</Text>
         <Button 
           title='Login'
-          onPress={() => this.props.navigation.navigate('Plank')}
+          onPress={() => this.props.navigation.navigate('Login')}
         />
         <Button 
           title='Sign up'
@@ -158,7 +159,8 @@ const PlankDrawerNavigator = createDrawerNavigator({
 
 const AppSwitchNavigator = createSwitchNavigator({
   Welcome: {screen: WelcomeScreen},
-  Plank: {screen: PlankDrawerNavigator}
+  Plank: {screen: PlankDrawerNavigator},
+  Login: {screen: LoginScreen}
 })
 
 // const AppContainer = createAppContainer(AppNavigator)

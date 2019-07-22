@@ -1,6 +1,5 @@
 import React from 'react'
-import { Text, View, WebView, Dimensions } from 'react-native'
-import { connect } from 'react-redux'
+import { Text, View, Dimensions } from 'react-native'
 import styled from 'styled-components'
 
 import Timer from '../components/Timer'
@@ -14,18 +13,12 @@ const VideoSquare = styled.View`
 `
 
 const TrainScreen = (props) => {
-  const { videos, selectedVideoId } = props.videos
-  const selectedVideo = videos[selectedVideoId]
   return (
     <View>
       <Text>Train screen</Text>
-      <Timer />
+      <Timer navigation={props.navigation} />
     </View>
   )
 }
 
-function mapStateToProps(state) {
-  return { videos: state.videos }
-}
-
-export default connect(mapStateToProps)(TrainScreen)
+export default TrainScreen

@@ -4,8 +4,6 @@ import {
 } from './types'
 
 export const railsLogout = (auth) => async dispatch => {
-  console.log('railsLogout action')
-  console.log('auth', auth)
   const rawResponse = await fetch('https://plankorailsfour.herokuapp.com/auth/sign_out', {
     method: 'DELETE',
     headers: {
@@ -16,9 +14,6 @@ export const railsLogout = (auth) => async dispatch => {
   })
   const headers = await rawResponse.headers
   const data = await rawResponse.json()
-
-  console.log('headers', headers)
-  console.log('data', data)
 
   dispatch({
     type: RAILS_LOGOUT,

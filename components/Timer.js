@@ -36,15 +36,6 @@ class Timer extends React.Component {
     start: 0
   }
 
-  componentDidMount() {
-    console.log('componentdidmount Timer')
-    console.log('auth', this.props)
-    // fetch('https://plankorailsfour.herokuapp.com/api/v1/trainings')
-    // fetch('https://jsonplaceholder.typicode.com/todos/1')
-    // .then(response => response.json())
-    // .then(json => console.log(json))
-  }
-  
   startTimer() {
     this.setState({
       isOn: true,
@@ -99,21 +90,25 @@ class Timer extends React.Component {
   }
 
   async handleLogout() {
-    console.log('handling log out')
     await this.props.railsLogout(this.props.auth)
-    console.log('navigate welcome', this.props.navigation)
+    this.props.navigation.navigate('Welcome')
+  }
+
+  handleGoToWelcome() {
     this.props.navigation.navigate('Welcome')
   }
 
   render() {
     return (
       <View>
-        {true && (
-          <Button 
-            title='Log out'
-            onPress={() => this.handleLogout()}
-          />
-        )}
+        <Button 
+          title='Log out'
+          onPress={() => this.handleLogout()}
+        />
+        <Button 
+          title='Go To Welcome'
+          onPress={() => this.handleGoToWelcome()}
+        />
         <TimerViewer>
           <StyledText>{millisToMinutesAndSeconds(this.state.time)}</StyledText>
         </TimerViewer>

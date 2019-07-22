@@ -5,6 +5,7 @@ import {
   Text,
   StyleSheet
 } from 'react-native'
+import {connect} from 'react-redux'
 
 const styles = StyleSheet.create({
   container: {
@@ -16,19 +17,8 @@ const styles = StyleSheet.create({
 })
 
 class WelcomeScreen extends React.Component {
-  componentDidMount() {
-    // const accessToken = await AsyncStorage.getItem('accessToken')
-    const accessToken = null
-
-    if (accessToken) {
-      // this.props.navigation.navigate('Plank')
-    } else {
-      // this.props.navigation.navigate('Login')
-    }
-  }
-
   renderActionBtn() {
-    const accessToken = null
+    const accessToken = this.props.auth.accessToken
 
     if (accessToken) {
       return (
@@ -51,6 +41,7 @@ class WelcomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Welcome screeeen</Text>
+        <Text>{this.props.auth.email}</Text>
         {this.renderActionBtn()}
         <Button 
           title='Sign up'
@@ -61,4 +52,8 @@ class WelcomeScreen extends React.Component {
   }
 }
 
-export default WelcomeScreen
+function mapStateToProps(state) {
+  return {auth: state.auth}
+}
+
+export default connect(mapStateToProps)(WelcomeScreen)

@@ -10,8 +10,7 @@ export default function(state = INITIAL_STATE, action) {
     case RAILS_LOGIN_SUCCESS:
       return action.payload
     case RAILS_LOGOUT:
-      console.log('reducer rails logout')
-      return {...state, auth: {}}
+      return {}
     default:
       return state
   }

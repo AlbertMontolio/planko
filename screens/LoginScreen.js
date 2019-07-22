@@ -5,31 +5,22 @@ import {
   TextInput,
   Button
 } from 'react-native'
+import {connect} from 'react-redux'
 
-export default class LoginScreen extends React.Component {
+import * as actions from '../state/auth/actions'
+
+class LoginScreen extends React.Component {
   state = {
-    email: '',
-    password: ''
+    email: 'albert@mail.com',
+    password: '123456'
   }
 
-  async handleLogin() {
-    console.log('state', this.state)
-    const rawResponse = await fetch('https://plankorailsfour.herokuapp.com/auth/sign_in', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: this.state.email, 
-        password: this.state.password
-      })
-    });
-    const content = await rawResponse.json();
+  componentDidMount() {
+    console.log('props', this.props)
+  }
 
-    console.log('contento', content);
-    console.log('navigation', this.props.navigation.navigate('Prank'))
-    this.props.navigation.navigate('Prank')
+  async handleRailsLogin() {
+    this.props.railsLogin(this.state.email, this.state.password)
   }
 
   render () {
@@ -49,9 +40,15 @@ export default class LoginScreen extends React.Component {
         />
         <Button 
           title='Login'
-          onPress={() => this.handleLogin()}
+          onPress={() => this.handleRailsLogin()}
         />
       </View>
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {auth: state.auth }
+}
+
+export default connect(mapStateToProps, actions)(LoginScreen)

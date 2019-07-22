@@ -3,6 +3,7 @@ import {
   StyleSheet, 
   Text, 
   View,
+  TextInput,
   Button
 } from 'react-native'
 import { Provider } from 'react-redux'
@@ -29,6 +30,13 @@ import ProfileScreen from './screens/ProfileScreen'
 // SelectVideoScreen: SelectVideoScreen,
 
 class WelcomeScreen extends React.Component {
+  handleLogin() {
+    console.log('Welcome screen')
+    console.log(this.props.navigation)
+    console.log(this.props.navigation.navigate('Login'))
+    this.props.navigation.navigate('Login')
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -157,10 +165,12 @@ const PlankDrawerNavigator = createDrawerNavigator({
   }
 })
 
+const LoginStack = createStackNavigator({ Login: LoginScreen })
+
 const AppSwitchNavigator = createSwitchNavigator({
   Welcome: {screen: WelcomeScreen},
-  Plank: {screen: PlankDrawerNavigator},
-  Login: {screen: LoginScreen}
+  Login: {screen: LoginStack},
+  Plank: {screen: PlankDrawerNavigator}
 })
 
 // const AppContainer = createAppContainer(AppNavigator)

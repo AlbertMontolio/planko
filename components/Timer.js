@@ -36,11 +36,11 @@ class Timer extends React.Component {
   }
 
   componentDidMount() {
-    console.log('componentdidmount')
-    fetch('https://plankorailsfour.herokuapp.com/api/v1/trainings')
+    console.log('componentdidmount Timer')
+    // fetch('https://plankorailsfour.herokuapp.com/api/v1/trainings')
     // fetch('https://jsonplaceholder.typicode.com/todos/1')
-    .then(response => response.json())
-    .then(json => console.log(json))
+    // .then(response => response.json())
+    // .then(json => console.log(json))
   }
   
   startTimer() {

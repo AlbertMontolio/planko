@@ -8,9 +8,17 @@ import {
 import { connect } from 'react-redux'
 import ResultsLog from '../components/organisms/ResultsLog'
 // import { DELETE_ALL_TRAINS } from '../state/trains/types'
-import * as actions from '../state/trains'
+import {
+  deleteAllTrains as deleteAllTrainsAction,
+  sendTrains as sendTrainsAction
+} from '../state/trains/actions'
 
 class ResultsLogScreen extends React.Component {
+  handleSendData() {
+    console.log('handleSendData')
+    this.props.sendTrains(this.props.auth)
+  }
+
   render () {
     return (
       <View>
@@ -20,9 +28,13 @@ class ResultsLogScreen extends React.Component {
           onPress={() => this.props.deleteAllTrains()}
         />
         <Button
-            title='Add training'
-            onPress={() => this.props.navigation.navigate('AddResultsScreen')}
-          />
+          title='Add training'
+          onPress={() => this.props.navigation.navigate('AddResultsScreen')}
+        />
+        <Button
+          title='Send datass'
+          onPress={() => this.handleSendData()}
+        />
         <ResultsLog 
           trains={this.props.trains}
           total={30}
@@ -33,7 +45,13 @@ class ResultsLogScreen extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return { trains: state.trains.trains }
+  return { 
+    trains: state.trains.trains,
+    auth: state.auth
+  }
 }
 
-export default connect(mapStateToProps, actions)(ResultsLogScreen)
+export default connect(mapStateToProps, {
+  deleteAllTrains: deleteAllTrainsAction,
+  sendTrains: sendTrainsAction
+})(ResultsLogScreen)

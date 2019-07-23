@@ -48,6 +48,7 @@ const handleRailsLogin = async (dispatch, email, password) => {
     })
   })
   const headers = await rawResponse.headers
+  console.log('headers after loginnnn', headers)
   const data = await rawResponse.json()
 
   const payload = {

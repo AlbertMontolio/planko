@@ -26,6 +26,7 @@ import ResultsLogScreen from './screens/ResultsLogScreen'
 import AddResultsScreen from './screens/AddResultsScreen'
 import TrainScreen from './screens/TrainScreen'
 import LoginScreen from './screens/LoginScreen'
+import SignUpScreen from './screens/SignUpScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import WelcomeScreen from './screens/WelcomeScreen'
 
@@ -141,10 +142,12 @@ const PlankDrawerNavigator = createDrawerNavigator({
 })
 
 const LoginStack = createStackNavigator({ Login: LoginScreen })
+const SignUpStack = createStackNavigator({ SignUp: SignUpScreen })
 
 const AppSwitchNavigator = createSwitchNavigator({
   Welcome: {screen: WelcomeScreen},
   Login: {screen: LoginStack},
+  SignUp: {screen: SignUpStack},
   Plank: {screen: PlankDrawerNavigator}
 })
 

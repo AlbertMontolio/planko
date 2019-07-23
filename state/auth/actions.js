@@ -21,7 +21,7 @@ export const railsLogout = (auth) => async dispatch => {
   })
 }
 
-export const railsLogin = (email, password) => async dispatch => {
+export const railsLogin = (email, password, type) => async dispatch => {
   console.log('rails login action')
   const authToken = null
 
@@ -31,12 +31,16 @@ export const railsLogin = (email, password) => async dispatch => {
       payload: authToken
     })
   } else {
-    await handleRailsLogin(dispatch, email, password)
+    await handleRailsLogin(dispatch, email, password, type)
   }
 }
 
-const handleRailsLogin = async (dispatch, email, password) => {
-  const rawResponse = await fetch('https://plankorailsfour.herokuapp.com/auth/sign_in', {
+const handleRailsLogin = async (dispatch, email, password, type) => {
+  const authType = type === 'sign-up' ? '' : '/sign_in'
+  const railsUrl = `https://plankorailsfour.herokuapp.com/auth${authType}`
+  console.log('railsUrl', railsUrl)
+  
+  const rawResponse = await fetch(railsUrl, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

@@ -29,10 +29,16 @@ class WelcomeScreen extends React.Component {
       )
     } else {
       return (
-        <Button 
-          title='Login'
-          onPress={() => this.props.navigation.navigate('Login')}
-        />
+        <View>
+          <Button 
+            title='Sign in'
+            onPress={() => this.props.navigation.navigate('Login')}
+          />
+          <Button 
+            title='Sign up'
+            onPress={() => this.props.navigation.navigate('SignUp')}
+          />
+        </View>
       )
     }
   }
@@ -43,10 +49,6 @@ class WelcomeScreen extends React.Component {
         <Text>Welcome screeeen</Text>
         <Text>{this.props.auth.email}</Text>
         {this.renderActionBtn()}
-        <Button 
-          title='Sign up'
-          onPress={() => alert('button sign up pressed')}
-        />
       </View>
     )
   }

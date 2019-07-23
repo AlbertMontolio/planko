@@ -26,7 +26,7 @@ export const sendTrains = (auth, trains) => async dispatch => {
       'token-type': 'Bearer',
       'client': auth.client,
       'uid': auth.uid,
-      'expiry': auth.expiry,
+      'expiry': auth.expiry,  
       'X-Requested-With': 'XMLHttpRequest'
     },
     body: JSON.stringify(bodyRequest)

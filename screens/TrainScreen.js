@@ -15,7 +15,6 @@ const VideoSquare = styled.View`
 const TrainScreen = (props) => {
   return (
     <View>
-      <Text>Train screen</Text>
       <Timer navigation={props.navigation} />
     </View>
   )

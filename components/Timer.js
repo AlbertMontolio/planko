@@ -1,5 +1,12 @@
 import React from 'react'
-import { Text, View, Button, AsyncStorage } from 'react-native'
+import { 
+  Text, 
+  View, 
+  Button, 
+  AsyncStorage,
+  Image,
+  Dimensions
+} from 'react-native'
 import { Button as NativeButton } from 'react-native-elements'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
@@ -33,11 +40,25 @@ class Timer extends React.Component {
   state = {
     time: 0,
     isOn: false,
-    start: 0
+    start: 0,
+    pics: [
+      require('../assets/nadal1.jpg'), 
+      require('../assets/nadal2.jpg'),
+      require('../assets/nadal3.jpg')
+    ],
+    picNum: 0
   }
 
   componentDidMount() {
-    // console.log('this.props', this.props)
+    console.log('this.state', this.state)
+  }
+
+  getRandomInt(min, max) {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    randomNumber = Math.floor(Math.random() * (max - min + 1)) + min
+    console.log('randomNumber', randomNumber)
+    return randomNumber
   }
 
   // start: Date.now() - this.state.time
@@ -50,11 +71,17 @@ class Timer extends React.Component {
     this.timer = setInterval(() => this.setState({
       time: Date.now() - this.state.start
     }), 1)
+
+    this.picsTimer = setInterval(() => this.setState({
+      picNum: this.getRandomInt(0, 2)
+    }), 5000)
   }
 
   stopTimer() {
     this.setState({ isOn: false })
+    this.setState({ picNum: 0 })
     clearInterval(this.timer)
+    clearInterval(this.picsTimer)
 
     console.log('auth', this.props.auth)
   
@@ -108,6 +135,7 @@ class Timer extends React.Component {
   }
 
   render() {
+    const dimensions = Dimensions.get('window');
     return (
       <View>
         <Button 
@@ -122,6 +150,10 @@ class Timer extends React.Component {
           <StyledText>{millisToMinutesAndSeconds(this.state.time)}</StyledText>
         </TimerViewer>
         { this.renderManageBtns() }
+        <Image 
+          source={this.state.pics[this.state.picNum]}
+          style={{ width: dimensions.width, height: 200 }}
+        />
       </View>
     )
   }

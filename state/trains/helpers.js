@@ -4,3 +4,7 @@ export const getLastKey = (trains) => {
   }
   return trains[trains.length - 1].id
 }
+
+export const getUserTrains = (trains, userId) => {
+  return  trains.filter((train) => train.userId === userId)
+}

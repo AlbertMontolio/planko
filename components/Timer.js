@@ -36,6 +36,10 @@ class Timer extends React.Component {
     start: 0
   }
 
+  componentDidMount() {
+    // console.log('this.props', this.props)
+  }
+
   // start: Date.now() - this.state.time
   startTimer() {
     this.setState({
@@ -51,11 +55,15 @@ class Timer extends React.Component {
   stopTimer() {
     this.setState({ isOn: false })
     clearInterval(this.timer)
+
+    console.log('auth', this.props.auth)
   
     const train = {
       start: this.state.start,
-      time: this.state.time
+      time: this.state.time,
+      userId: this.props.auth.id
     }
+
     this.props.storeTrain(train)
   }
 
@@ -120,7 +128,9 @@ class Timer extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {auth: state.auth}
+  return {
+    auth: state.auth
+  }
 }
 
 export default connect(mapStateToProps, {

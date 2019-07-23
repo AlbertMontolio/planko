@@ -12,12 +12,17 @@ import {
   deleteAllTrains as deleteAllTrainsAction,
   sendTrains as sendTrainsAction
 } from '../state/trains/actions'
+import {getUserTrains} from '../state/trains/helpers'
 
 class ResultsLogScreen extends React.Component {
   handleSendData() {
     console.log('handleSendData')
-    const trains = this.props.trains
+    const trains = getUserTrains(this.props.trains, this.props.auth.id)
     this.props.sendTrains(this.props.auth, trains)
+  }
+
+  handleUserTrains() {
+    return getUserTrains(this.props.trains, this.props.auth.id)
   }
 
   render () {
@@ -26,7 +31,7 @@ class ResultsLogScreen extends React.Component {
         <Text>Results Log Screen</Text>
         <Button
           title='Delete all'
-          onPress={() => this.props.deleteAllTrains()}
+          onPress={() => this.props.deleteAllTrains(this.props.auth.id)}
         />
         <Button
           title='Add training'
@@ -37,7 +42,7 @@ class ResultsLogScreen extends React.Component {
           onPress={() => this.handleSendData()}
         />
         <ResultsLog 
-          trains={this.props.trains}
+          trains={this.handleUserTrains()}
           total={30}
         />
       </View>

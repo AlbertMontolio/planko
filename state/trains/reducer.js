@@ -18,7 +18,9 @@ export default function(state = INITIAL_STATE, action) {
 
       return { trains: [...state.trains, train] }
     case DELETE_ALL_TRAINS:
-      return { trains: [] }
+      const remainingTrains = state.trains.filter((train) => train.userId !== action.payload)
+
+      return { trains: remainingTrains }
     case DELETE_TRAIN:
       const idIndex = state.trains.findIndex(train => train.id === action.payload);
       return {

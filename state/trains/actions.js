@@ -57,9 +57,10 @@ export const deleteTrain = payload => {
   }
 }
 
-export const deleteAllTrains = () => {
+export const deleteAllTrains = payload => {
   return {
-    type: DELETE_ALL_TRAINS
+    type: DELETE_ALL_TRAINS,
+    payload: payload
   }
 }
 

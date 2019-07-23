@@ -16,7 +16,8 @@ import {
 class ResultsLogScreen extends React.Component {
   handleSendData() {
     console.log('handleSendData')
-    this.props.sendTrains(this.props.auth)
+    const trains = this.props.trains
+    this.props.sendTrains(this.props.auth, trains)
   }
 
   render () {

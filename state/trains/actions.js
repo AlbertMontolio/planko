@@ -6,14 +6,17 @@ import {
   SEND_TRAINS
 } from './types'
 
-export const sendTrains = (auth) => async dispatch => {
+export const sendTrains = (auth, trains) => async dispatch => {
   console.log('sendTrainssssss')
   console.log('auth', auth)
   const bodyRequest = {
-    'uid': '1',
-    'Access-Token': auth.accessToken
+    'user_id': auth.id,
+    trains: trains
   }
-  //jqXHRt
+
+  console.log('bodyRequestttt', bodyRequest)
+  console.log('bodyRequest stringify', JSON.stringify(bodyRequest))
+
   const rawResponse = await fetch('https://plankorailsfour.herokuapp.com/api/v1/import', {
     method: 'POST',
     headers: {
@@ -22,7 +25,7 @@ export const sendTrains = (auth) => async dispatch => {
       'access-token': auth.accessToken,
       'token-type': 'Bearer',
       'client': auth.client,
-      'uid': auth.id,
+      'uid': auth.uid,
       'expiry': auth.expiry,
       'X-Requested-With': 'XMLHttpRequest'
     },

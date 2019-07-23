@@ -36,11 +36,12 @@ class Timer extends React.Component {
     start: 0
   }
 
+  // start: Date.now() - this.state.time
   startTimer() {
     this.setState({
       isOn: true,
       time: this.state.time,
-      start: Date.now() - this.state.time
+      start: Date.now()
     })
     this.timer = setInterval(() => this.setState({
       time: Date.now() - this.state.start

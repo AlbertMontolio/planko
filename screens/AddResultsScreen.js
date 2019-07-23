@@ -55,9 +55,12 @@ class AddResultsScreen extends React.Component {
 
   addTrain () {
     const train = {
-      start: this.state.chosenInitDate,
-      time: this.state.chosenEndDate - this.state.chosenInitDate
+      start: this.state.chosenInitDate.getTime(),
+      time: this.state.chosenEndDate - this.state.chosenInitDate,
+      userId: this.props.auth.id
     }
+
+    console.log('train addTrain', train)
     this.props.storeTrain(train)
   }
 
@@ -129,4 +132,10 @@ class AddResultsScreen extends React.Component {
   }
 }
 
-export default connect(null, actions)(AddResultsScreen)
+function mapStateToProps(state) {
+  return {
+    auth: state.auth
+  }
+}
+
+export default connect(mapStateToProps, actions)(AddResultsScreen)

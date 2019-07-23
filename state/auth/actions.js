@@ -50,14 +50,18 @@ const handleRailsLogin = async (dispatch, email, password) => {
   const headers = await rawResponse.headers
   console.log('headers after loginnnn', headers)
   const data = await rawResponse.json()
+  console.log('data', data)
 
   const payload = {
     accessToken: headers.map['access-token'],
     client: headers.map['client'],
     id: data.data.id,
+    uid: data.data.uid,
     email: data.data.email
   }
   
+  console.log('payload', payload)
+
   dispatch({
     type: RAILS_LOGIN_SUCCESS,
     payload: payload

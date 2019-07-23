@@ -22,7 +22,7 @@ export const sendTrains = (auth) => async dispatch => {
       'access-token': auth.accessToken,
       'token-type': 'Bearer',
       'client': auth.client,
-      'uid': '1',
+      'uid': auth.id,
       'expiry': auth.expiry,
       'X-Requested-With': 'XMLHttpRequest'
     },

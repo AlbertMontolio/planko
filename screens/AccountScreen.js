@@ -10,6 +10,7 @@ import {railsLogout as railsLogoutAction} from '../state/auth/actions'
 
 class AccountScreen extends React.Component {
   async handleLogout() {
+    
     await this.props.railsLogout(this.props.auth)
     this.props.navigation.navigate('Welcome')
   }

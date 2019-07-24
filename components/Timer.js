@@ -42,9 +42,12 @@ class Timer extends React.Component {
     isOn: false,
     start: 0,
     pics: [
+      require('../assets/plank.jpg'),
       require('../assets/nadal1.jpg'), 
       require('../assets/nadal2.jpg'),
-      require('../assets/nadal3.jpg')
+      require('../assets/nadal3.jpg'),
+      require('../assets/plank2.jpg'),
+      require('../assets/plank3.jpg')
     ],
     picNum: 0
   }
@@ -129,7 +132,6 @@ class Timer extends React.Component {
     const dimensions = Dimensions.get('window');
     return (
       <View>
-        
         <TimerViewer>
           <StyledText>{millisToMinutesAndSeconds(this.state.time)}</StyledText>
         </TimerViewer>

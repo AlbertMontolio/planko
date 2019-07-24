@@ -28,6 +28,7 @@ class AddResultsScreen extends React.Component {
   // TODO am i using this method?
   getCurrentDate() {
     const basedDate = new Date()
+    basedDate.setHours(8)
     basedDate.setMinutes(0)
     basedDate.setSeconds(0)
     return basedDate

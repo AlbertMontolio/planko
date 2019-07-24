@@ -59,7 +59,7 @@ class WelcomeScreen extends React.Component {
       return (
         <StyledLetsBtn>
           <Button 
-            title="Let's plank!"
+            title="Let's plank"
             type='outline'
             onPress={() => this.props.navigation.navigate('Plank')}
           />

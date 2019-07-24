@@ -17,19 +17,6 @@ const GrayBackground = styled.View`
   background-color: rgb(240,240,240);
 `
 
-const StyledTitle = styled.View`
-  background-color: white;
-  font-size: 20px;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60px;
-  margin-top: 20px;
-  borderBottomColor: rgb(240,240,240);
-  borderBottomWidth: 1;
-`
-
 class ResultsScreen extends React.Component {
   handleUserTrains() {
     return getUserTrains(this.props.trains, this.props.auth.id)
@@ -38,11 +25,6 @@ class ResultsScreen extends React.Component {
     return (
       <GrayBackground>
         <ScrollView>
-          <StyledTitle>
-            <Text>
-              Results
-            </Text>
-          </StyledTitle>
           <ResultsChart trainings={this.handleUserTrains()} />
           <ResultsLog 
             trains={this.handleUserTrains()}

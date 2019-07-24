@@ -49,6 +49,26 @@ const styles = StyleSheet.create({
 
 // trains, total
 class ResultsLog extends React.Component {
+  renderSwipeRow(train) {
+    return (
+      <SwipeRow 
+        leftOpenValue={75} 
+        rightOpenValue={-150}
+      >
+        <View style={styles.hiddenRowWrapper}>
+          <View style={styles.hiddenBtnsWrapper}>
+            <Button title='Edit'/>
+            <Button 
+              title='Delete'
+              onPress={() => this.props.deleteTrain(train.id)}
+            />
+          </View>
+        </View>
+        <ResultLog train={train}/>
+      </SwipeRow>
+    )
+  }
+
   render () {
     const {trains, total} = this.props
 
@@ -60,32 +80,16 @@ class ResultsLog extends React.Component {
         </StyledResult>
 
         <SwipeListView
-            useFlatList
-            data={trains.slice(0, total)}
-            renderItem={ (train, rowMap) => {
-              return (
-                <SwipeRow leftOpenValue={75} rightOpenValue={-150}>
-                  <View style={styles.hiddenRowWrapper}>
-                    <View style={styles.hiddenBtnsWrapper}>
-                      <Button 
-                        title='Edit'
-                      />
-                      <Button 
-                        title='Delete'
-                        onPress={() => this.props.deleteTrain(train.item.id)}
-                      />
-                    </View>
-                  </View>
-                  <ResultLog 
-                    train={train.item}
-                    key={train.date}
-                  />
-                </SwipeRow>
-              )
-            }}
-    
-            leftOpenValue={75}
-            rightOpenValue={-75}
+          useFlatList
+          data={trains}
+          renderItem={ (train, rowMap) => {
+            return (
+              this.renderSwipeRow(train.item)
+            )
+          }}
+          keyExtractor={(item, index) => index.toString()}
+          leftOpenValue={75}
+          rightOpenValue={-75}
         />
       </StyledResults>
     )

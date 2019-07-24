@@ -81,7 +81,7 @@ class ResultsLog extends React.Component {
 
         <SwipeListView
           useFlatList
-          data={trains}
+          data={trains.slice(0, total)}
           renderItem={ (train, rowMap) => {
             return (
               this.renderSwipeRow(train.item)

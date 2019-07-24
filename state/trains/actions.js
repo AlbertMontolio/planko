@@ -3,7 +3,8 @@ import {
   DELETE_ALL_TRAINS,
   DELETE_TRAIN,
   ADD_TRAIN,
-  SEND_TRAINS
+  SEND_TRAINS,
+  EMPTY_ALL_MOBILE_TRAINS
 } from './types'
 
 export const sendTrains = (auth, trains) => async dispatch => {
@@ -61,6 +62,12 @@ export const deleteAllTrains = payload => {
   return {
     type: DELETE_ALL_TRAINS,
     payload: payload
+  }
+}
+
+export const emptyAllMobileTrains = () => {
+  return {
+    type: EMPTY_ALL_MOBILE_TRAINS
   }
 }
 

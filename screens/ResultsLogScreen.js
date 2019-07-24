@@ -2,17 +2,36 @@ import React from 'react'
 import { 
   Text, 
   View,
-  Button,
   AsyncStorage
 } from 'react-native'
+import styled from 'styled-components'
+import {
+  Button
+} from 'react-native-elements'
+
 import { connect } from 'react-redux'
 import ResultsLog from '../components/organisms/ResultsLog'
 // import { DELETE_ALL_TRAINS } from '../state/trains/types'
-import {
-  deleteAllTrains as deleteAllTrainsAction,
-  sendTrains as sendTrainsAction
-} from '../state/trains/actions'
+import {sendTrains as sendTrainsAction} from '../state/trains/actions'
 import {getUserTrains} from '../state/trains/helpers'
+
+// TODO refactor
+
+const StyledTitle = styled.View`
+  align-items: center;
+  margin-top: 20px;
+`
+
+const BoldTitle = styled.Text`
+  font-weight: bold;
+`
+
+const BtnsWrapper = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px 40px;
+`
 
 class ResultsLogScreen extends React.Component {
   handleSendData() {
@@ -28,19 +47,21 @@ class ResultsLogScreen extends React.Component {
   render () {
     return (
       <View>
-        <Text>Results Log Screen</Text>
-        <Button
-          title='Delete all'
-          onPress={() => this.props.deleteAllTrains(this.props.auth.id)}
-        />
-        <Button
-          title='Add training'
-          onPress={() => this.props.navigation.navigate('AddResultsScreen')}
-        />
-        <Button
-          title='Send datass'
-          onPress={() => this.handleSendData()}
-        />
+        <StyledTitle>
+          <BoldTitle>All your trainings</BoldTitle>
+        </StyledTitle>
+        <BtnsWrapper>
+          <Button
+            title='Add training'
+            type='outline'
+            onPress={() => this.props.navigation.navigate('AddResultsScreen')}
+          />
+          <Button
+            title='Web sync'
+            type='outline'
+            onPress={() => this.handleSendData()}
+          />
+        </BtnsWrapper>
         <ResultsLog 
           trains={this.handleUserTrains()}
           total={30}
@@ -58,6 +79,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  deleteAllTrains: deleteAllTrainsAction,
   sendTrains: sendTrainsAction
 })(ResultsLogScreen)

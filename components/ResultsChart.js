@@ -25,7 +25,7 @@ const StyledTitle = styled.View`
   margin-top: 20px;
 `
 
-const EvoTitle = styled.Text`
+const BoldTitle = styled.Text`
   font-weight: bold;
 `
 
@@ -38,7 +38,7 @@ const ResultsChart = ({ trainings }) => {
   return (
     <StyledChart>
       <StyledTitle>
-        <EvoTitle>Your Plank's Evolutionnn</EvoTitle>
+        <BoldTitle>Your Plank's Evolution</BoldTitle>
       </StyledTitle>
       <VictoryChart theme={VictoryTheme.material}>
         <VictoryLine

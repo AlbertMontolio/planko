@@ -2,9 +2,13 @@ import React from 'react'
 import { 
   Text, 
   View,
-  Button,
   ScrollView
 } from 'react-native'
+
+import {
+  Button
+} from 'react-native-elements'
+
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
@@ -15,6 +19,11 @@ import {getUserTrains} from '../state/trains/helpers'
 
 const GrayBackground = styled.View`
   background-color: rgb(240,240,240);
+`
+
+const MoreLogs = styled.View`
+  padding: 20px 40px;
+  background-color: white;
 `
 
 class ResultsScreen extends React.Component {
@@ -30,10 +39,13 @@ class ResultsScreen extends React.Component {
             trains={this.handleUserTrains()}
             total={5}
           />
-          <Button
-            title='More results'
-            onPress={() => this.props.navigation.navigate('ResultsLogScreen')}
-          />
+          <MoreLogs>
+            <Button
+              title='More results'
+              type='outline'
+              onPress={() => this.props.navigation.navigate('ResultsLogScreen')}
+            />
+          </MoreLogs>
         </ScrollView>
       </GrayBackground>
     )

@@ -22,6 +22,11 @@ const StyledChart = styled.View`
 
 const StyledTitle = styled.View`
   align-items: center;
+  margin-top: 20px;
+`
+
+const EvoTitle = styled.Text`
+  font-weight: bold;
 `
 
 const ResultsChart = ({ trainings }) => {
@@ -33,11 +38,9 @@ const ResultsChart = ({ trainings }) => {
   return (
     <StyledChart>
       <StyledTitle>
-        <Text>Your Plank's Evolutionnn</Text>
+        <EvoTitle>Your Plank's Evolutionnn</EvoTitle>
       </StyledTitle>
-      <VictoryChart
-        theme={VictoryTheme.material}
-      >
+      <VictoryChart theme={VictoryTheme.material}>
         <VictoryLine
           style={{
             data: { stroke: "#c43a31" },

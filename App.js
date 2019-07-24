@@ -109,9 +109,42 @@ const ResultsStack = createStackNavigator({
   }
 })
 
-const PlankTabNavigator = createBottomTabNavigator({
+const PlankTabNavigatorr = createBottomTabNavigator({
   TrainStack,
   ResultsStack
+}, {
+  navigationOptions: ({navigation}) => {
+    const {routeName} = navigation.state.routes[navigation.state.index]
+    return {
+      header: null,
+      headerTitle: routeName
+    }
+  }
+})
+
+const PlankTabNavigator = createBottomTabNavigator({
+  TrainStack: {
+    screen: TrainStack,
+    navigationOptions: {
+      title: 'Train',
+      tabBarIcon: ({ tintColor }) => (
+        <Icon name="ios-fitness" size={17} color={tintColor} />
+      ),
+    }
+  },
+  ResultsStack: {
+    screen: ResultsStack,
+    navigationOptions: {
+      title: 'Results',
+      tabBarIcon: ({ tintColor }) => (
+        <Icon 
+          name="ios-podium" 
+          size={17} 
+          color={tintColor} 
+        />
+      ),
+    }
+  }
 }, {
   navigationOptions: ({navigation}) => {
     const {routeName} = navigation.state.routes[navigation.state.index]

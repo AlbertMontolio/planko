@@ -6,13 +6,15 @@ import {
 } from 'react-native'
 
 class SettingsScreen extends React.Component {
+  componentDidMount() {
+    console.log('SettingsScreen this props', this.props)
+  }
   render () {
     return (
       <View>
-        <Text>Settings</Text>
         <Button
           title='Account'
-          onPress={() => this.props.navigation.navigate('AccountScreen')}
+          onPress={() => this.props.navigation.navigate('Account')}
         />
       </View>
     )

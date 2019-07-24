@@ -125,27 +125,11 @@ class Timer extends React.Component {
     )
   }
 
-  async handleLogout() {
-    await this.props.railsLogout(this.props.auth)
-    this.props.navigation.navigate('Welcome')
-  }
-
-  handleGoToWelcome() {
-    this.props.navigation.navigate('Welcome')
-  }
-
   render() {
     const dimensions = Dimensions.get('window');
     return (
       <View>
-        <Button 
-          title='Log out'
-          onPress={() => this.handleLogout()}
-        />
-        <Button 
-          title='Go To Welcome'
-          onPress={() => this.handleGoToWelcome()}
-        />
+        
         <TimerViewer>
           <StyledText>{millisToMinutesAndSeconds(this.state.time)}</StyledText>
         </TimerViewer>

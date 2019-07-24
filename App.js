@@ -86,7 +86,10 @@ const ResultsLogStack = createStackNavigator({
     }
   },
   AddResultsScreen: {
-    screen: AddResultsStack
+    screen: AddResultsStack,
+    navigationOptions: {
+      header: null
+    }
   }
 })
 
@@ -111,7 +114,7 @@ const ResultsStack = createStackNavigator({
   }
 })
 
-const PlankTabNavigatorr = createBottomTabNavigator({
+const PlankTabNavigatorrrrr = createBottomTabNavigator({
   TrainStack,
   ResultsStack
 }, {
@@ -170,9 +173,35 @@ const PlankStackNavigator = createStackNavigator({
   }
 })
 
-const SettingsStack = createSwitchNavigator({ 
-  Settings: {screen: SettingsScreen},
-  Account: {screen: AccountScreen}
+const AccountStackNavigator = createStackNavigator({
+  Account: {
+    screen: AccountScreen,
+    navigationOptions: {
+      header: null,
+      title: 'Accounts'
+    }
+  }
+})
+
+const SettingsStackNavigator = createStackNavigator({ 
+  Settings: {
+    screen: SettingsScreen,
+    navigationOptions: ({navigation}) => {
+      return {
+        headerTitle: 'Settings',
+        headerLeft: (
+          <Icon style={{paddingLeft: 10}}
+            onPress={() => navigation.openDrawer()} 
+            name='md-menu' 
+            size={30}
+          />
+        )
+      }
+    }
+  },
+  Account: {
+    screen: AccountStackNavigator
+  }
 })
 
 const PlankDrawerNavigator = createDrawerNavigator({
@@ -180,7 +209,7 @@ const PlankDrawerNavigator = createDrawerNavigator({
     screen: PlankStackNavigator
   },
   Settings: {
-    screen: SettingsStack
+    screen: SettingsStackNavigator
   }
 })
 

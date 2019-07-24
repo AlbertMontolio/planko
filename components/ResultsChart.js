@@ -33,7 +33,7 @@ const ResultsChart = ({ trainings }) => {
   const formattedTrainings = trainings.map((training) => {
     const formattedStart = formatDate(training.start, 'D.M')
     const formattedTime = millisToMinutesAndSeconds(training.time)
-    return { x: formattedStart, y: formattedTime }
+    return { x: formattedStart, y: training.time }
   })
   return (
     <StyledChart>

@@ -9,3 +9,5 @@ expo upload:ios
 curl http://localhost:3000/auth/sign_in --data "email=albert@mail.com&password=123456"
 
 curl https://plankorailsfour.herokuapp.com/auth --data "email=albert@mail.com&password=123456" 
+
+// archive, list, podium

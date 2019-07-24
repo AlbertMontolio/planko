@@ -29,6 +29,8 @@ import LoginScreen from './screens/LoginScreen'
 import SignUpScreen from './screens/SignUpScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import WelcomeScreen from './screens/WelcomeScreen'
+import SettingsScreen from './screens/SettingsScreen'
+import AccountScreen from './screens/AccountScreen'
 
 export default class App extends React.Component {
   render () {
@@ -168,9 +170,17 @@ const PlankStackNavigator = createStackNavigator({
   }
 })
 
+const SettingsStack = createSwitchNavigator({ 
+  Settings: {screen: SettingsScreen},
+  Account: {screen: AccountScreen}
+})
+
 const PlankDrawerNavigator = createDrawerNavigator({
   Plank: {
     screen: PlankStackNavigator
+  },
+  Settings: {
+    screen: SettingsStack
   }
 })
 

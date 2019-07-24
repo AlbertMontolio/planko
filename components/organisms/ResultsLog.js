@@ -67,9 +67,7 @@ class ResultsLog extends React.Component {
                 <SwipeRow leftOpenValue={75} rightOpenValue={-150}>
                   <View style={styles.hiddenRowWrapper}>
                     <View style={styles.hiddenBtnsWrapper}>
-                      <Button 
-                        title='Edit'
-                      />
+                      <Button title='Edit'/>
                       <Button 
                         title='Delete'
                         onPress={() => this.props.deleteTrain(train.item.id)}

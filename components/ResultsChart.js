@@ -1,13 +1,18 @@
 import React from 'react'
 import { Text, View, StyleSheet} from 'react-native'
-import moment from 'moment'
 import styled from 'styled-components'
 import { 
   VictoryBar, 
   VictoryChart, 
   VictoryTheme,
-  VictoryLine
-} from "victory-native"
+  VictoryLine,
+  VictoryAxis
+} from 'victory-native'
+
+import {
+  millisToMinutesAndSeconds,
+  formatDate
+} from './helpers/dates'
 
 const StyledChart = styled.View`
   background-color: white;
@@ -21,13 +26,14 @@ const StyledTitle = styled.View`
 
 const ResultsChart = ({ trainings }) => {
   const formattedTrainings = trainings.map((training) => {
-    formattedStart = moment(training.start).format('D MMM hh:mm')
-    return { x: formattedStart, y: training.time }
+    const formattedStart = formatDate(training.start, 'D.M')
+    const formattedTime = millisToMinutesAndSeconds(training.time)
+    return { x: formattedStart, y: formattedTime }
   })
   return (
     <StyledChart>
       <StyledTitle>
-        <Text>Your Plank's Evolution</Text>
+        <Text>Your Plank's Evolutionnn</Text>
       </StyledTitle>
       <VictoryChart
         theme={VictoryTheme.material}

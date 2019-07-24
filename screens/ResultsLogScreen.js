@@ -35,7 +35,7 @@ const BtnsWrapper = styled.View`
 
 class ResultsLogScreen extends React.Component {
   handleSendData() {
-    console.log('handleSendData')
+    console.log('handleSendData.')
     const trains = getUserTrains(this.props.trains, this.props.auth.id)
     this.props.sendTrains(this.props.auth, trains)
   }

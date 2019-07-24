@@ -25,7 +25,7 @@ const StyledTimePickers = styled.View`
 
 class AddResultsScreen extends React.Component {
 
-  // TODO am i using this method?
+  // TODO refactor
   getCurrentDate() {
     const basedDate = new Date()
     basedDate.setHours(8)
@@ -34,9 +34,17 @@ class AddResultsScreen extends React.Component {
     return basedDate
   }
 
+  getEndDate() {
+    const basedEndDate = new Date()
+    basedEndDate.setHours(8)
+    basedEndDate.setMinutes(0)
+    basedEndDate.setSeconds(0)
+    return basedEndDate
+  }
+
   state = {
     chosenInitDate: this.getCurrentDate(),
-    chosenEndDate: this.getCurrentDate(),
+    chosenEndDate: this.getEndDate(),
     chosenMinutes: 0,
     chosenSeconds: 0,
     elapsedTime: 0
@@ -44,9 +52,16 @@ class AddResultsScreen extends React.Component {
 
   setInitDate = (newInitDate) => {
     // const basedInitDate = this.getCurrentDate(newInitDate)
+    console.log('newInitDate', typeof newInitDate)
+    const chosenEndDateFromInit = JSON.parse(JSON.stringify(newInitDate))
+    console.log('chosenEndDateFromInit', typeof chosenEndDateFromInit)
+
+    const chosenEndDateDate = new Date(chosenEndDateFromInit)
+    console.log('chosenEndDateDate ---', chosenEndDateDate)
+    
     this.setState({
       chosenInitDate: newInitDate,
-      chosenEndDate: newInitDate
+      chosenEndDate: chosenEndDateDate
     })
   }
 
@@ -61,7 +76,7 @@ class AddResultsScreen extends React.Component {
       userId: this.props.auth.id
     }
 
-    console.log('train addTrain', train)
+    console.log('train addTrainn', train)
     this.props.storeTrain(train)
   }
 
